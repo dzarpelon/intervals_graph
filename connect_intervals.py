@@ -51,23 +51,29 @@ def generate_and_serve():
             # Convert date columns to datetime
             df['start_date_local'] = pd.to_datetime(df['start_date_local'])
             
+            # Calculate Pace from average_speed and add it to the DataFrame
+            if 'average_speed' in df.columns:
+                df['Pace'] = 1 / df['average_speed'] * 1000 / 60  # Convert speed (m/s) to pace (min/km)
+            
             # Generate Pace and Heart Rate vs. Time graph
-            if 'average_speed' in df.columns and 'average_heartrate' in df.columns:
-                df['pace'] = 1 / df['average_speed']  # Assuming speed is in m/s, convert to min/km
-                
+            if 'Pace' in df.columns and 'average_heartrate' in df.columns:
                 fig, ax1 = plt.subplots()
 
-                ax1.set_xlabel('Date')
+                ax1.set_xlabel('Time')
                 ax1.set_ylabel('Pace (min/km)', color='tab:blue')
-                ax1.plot(df['start_date_local'], df['pace'], color='tab:blue', label='Pace')
+                ax1.plot(df['start_date_local'], df['Pace'], color='tab:blue', label='Pace')
                 ax1.tick_params(axis='y', labelcolor='tab:blue')
 
-                ax2 = ax1.twinx()  # Instantiate a second axes that shares the same x-axis
+                # Create a second y-axis for Heart Rate
+                ax2 = ax1.twinx()
                 ax2.set_ylabel('Heart Rate (bpm)', color='tab:red')
                 ax2.plot(df['start_date_local'], df['average_heartrate'], color='tab:red', label='Heart Rate')
                 ax2.tick_params(axis='y', labelcolor='tab:red')
 
-                fig.tight_layout()  # To prevent the labels from overlapping
+                # Rotate the x-axis date labels for better readability
+                plt.setp(ax1.get_xticklabels(), rotation=45, ha='right')
+
+                fig.tight_layout()
                 plt.title('Pace and Heart Rate vs. Time')
 
                 # Save the plot to a PNG file in the same directory as the HTML
@@ -85,7 +91,8 @@ def generate_and_serve():
                 </html>
                 """
                 
-                html_filename = os.path.join(output_dir, 'pace_heartrate_vs_time.html')
+                # Rename the HTML file to index.html so it serves as the root
+                html_filename = os.path.join(output_dir, 'index.html')
                 with open(html_filename, 'w') as file:
                     file.write(html_content)
                 
@@ -95,7 +102,7 @@ def generate_and_serve():
                 server_thread.start()
 
                 # Keep the script running
-                print("HTTP server is running. Access the report at http://localhost:8080/pace_heartrate_vs_time.html")
+                print("HTTP server is running. Access the report at http://localhost:8080/")
                 input("Press Enter to stop the server...\n")
 
         else:
