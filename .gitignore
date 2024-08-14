@@ -1,39 +1,31 @@
-# Byte-compiled / optimized / DLL files
+# Ignore Python bytecode files
 __pycache__/
 *.py[cod]
-*$py.class
 
-# Environment variables and config files
+# Ignore environment variables file
 .env
-.config
 
-# VSCode settings
-.vscode/
-*.code-workspace
-
-# Output directories
+# Ignore output files (generated content)
 output/plots/
 output/reports/
+output/index.html
 
-# Logs
-*.log
+# Ignore editor settings (if not intentionally shared)
+*.code-workspace
 
-# OS-generated files
+# Ignore OS-generated files
 .DS_Store
 Thumbs.db
 
-# Python virtual environment
-venv/
-env/
+# Ignore compiled files
+*.so
+*.dylib
+*.dll
 
-# Jupyter Notebook checkpoints
-.ipynb_checkpoints/
-
-# Backup files
+# Ignore backup files
 *.bak
 *.swp
-*.swo
 *~
 
-# Installed packages
-site/
+# Ignore temporary or log files
+*.log
