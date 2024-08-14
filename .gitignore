@@ -1,4 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables and config files
 .env
-*.csv
-*.png
-*.html
+.config
+
+# VSCode settings
+.vscode/
+*.code-workspace
+
+# Output directories
+output/plots/
+output/reports/
+
+# Logs
+*.log
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Python virtual environment
+venv/
+env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Backup files
+*.bak
+*.swp
+*.swo
+*~
+
+# Installed packages
+site/
