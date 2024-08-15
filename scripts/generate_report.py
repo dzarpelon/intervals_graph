@@ -1,8 +1,9 @@
-# scripts/generate_report.py
 import os
 
 def generate_main_html(output_dir, plot_files):
-    # Generate the main index.html that includes all plots
+    """
+    Generates the main HTML report that includes all plots.
+    """
     html_content = "<html><head><title>All Plots</title></head><body><h1>All Plots</h1>"
 
     for plot in plot_files:
@@ -12,7 +13,7 @@ def generate_main_html(output_dir, plot_files):
 
     html_content += "</body></html>"
 
-    # Save this main HTML in the output directory
+    # Save the HTML report in the output directory
     html_path = os.path.join(output_dir, 'index.html')
     with open(html_path, 'w') as file:
         file.write(html_content)
@@ -20,11 +21,18 @@ def generate_main_html(output_dir, plot_files):
     return html_path
 
 def generate_html_report(image_path, output_dir):
+    """
+    Generates an individual HTML report for a specific plot.
+    """
     if image_path is None:
         print("No image to generate HTML report.")
         return None
 
     reports_dir = os.path.join(output_dir, 'reports')
+
+    # Ensure the reports directory exists
+    if not os.path.exists(reports_dir):
+        os.makedirs(reports_dir)
 
     image_relative_path = os.path.relpath(image_path, start=reports_dir)
 
@@ -41,9 +49,5 @@ def generate_html_report(image_path, output_dir):
     html_path = os.path.join(reports_dir, 'index.html')
     with open(html_path, 'w') as file:
         file.write(html_content)
-
-    # Generate the main index.html that includes all plots
-    plot_files = [os.path.join(output_dir, 'plots', fname) for fname in os.listdir(os.path.join(output_dir, 'plots')) if fname.endswith('.png')]
-    generate_main_html(output_dir, plot_files)
     
     return html_path

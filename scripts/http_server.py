@@ -2,11 +2,11 @@
 
 import http.server
 import socketserver
-import os
 
 def start_http_server(directory, port=8080):
-    os.chdir(directory)
+    # Directly set the handler's directory instead of changing the global working directory
     handler = http.server.SimpleHTTPRequestHandler
+    handler.directory = directory  # Set the directory for the HTTP server to serve
     httpd = socketserver.TCPServer(("", port), handler)
     print(f"Serving at port {port}")
     httpd.serve_forever()

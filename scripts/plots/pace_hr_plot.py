@@ -1,13 +1,15 @@
-# scripts/generate_plot.py
+# scripts/plots/pace_hr_plot.py
 
 import matplotlib.pyplot as plt
 import os
 
 def generate_plot(df, output_dir):
-    if df is None:
+    # Check if the dataframe is empty or None
+    if df is None or df.empty:
         print("No data to plot.")
         return None
 
+    # Generate the Pace and Heart Rate vs. Time plot
     fig, ax1 = plt.subplots()
 
     ax1.set_xlabel('Time')
@@ -24,7 +26,7 @@ def generate_plot(df, output_dir):
     fig.tight_layout()
     plt.title('Pace and Heart Rate vs. Time')
 
-    # Save the plot to a PNG file
-    plot_path = os.path.join(output_dir, 'plots', 'pace_heartrate_vs_time.png')
+    # Save the plot as a PNG file in the specified output directory
+    plot_path = os.path.join(output_dir, 'plots', 'pace_hr_plot.png')
     plt.savefig(plot_path)
-    return plot_path
+    print(f"Plot saved to {plot_path}")
