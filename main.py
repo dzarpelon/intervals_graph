@@ -1,3 +1,5 @@
+# main.py
+
 from config.settings import API_BASE_URL, OLDEST_DATE, NEWEST_DATE, PORT, OUTPUT_DIR
 from scripts.fetch_data import fetch_running_data
 from scripts.process_data import process_data
