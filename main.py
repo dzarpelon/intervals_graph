@@ -1,19 +1,19 @@
 # main.py
-
 from config.settings import API_BASE_URL, OLDEST_DATE, NEWEST_DATE, PORT, OUTPUT_DIR
 from scripts.fetch_data import fetch_running_data
 from scripts.process_data import process_data
-from scripts.plot_manager import generate_all_plots, generate_main_html_report
+from scripts.plot_manager import generate_main_html_report, load_and_run_plot_script, generate_all_plots
 from scripts.http_server import start_http_server
-from scripts.plot_event_handler import PlotFileEventHandler
 import os
 from dotenv import load_dotenv
 from watchdog.observers import Observer
+from scripts.plot_event_handler import PlotFileEventHandler
 
 # Set the working directory to the project root
 os.chdir('/workspaces/python/intervals_graph')
 
 def start_file_observer(df, output_dir):
+    """Start the watchdog observer to monitor plot scripts."""
     event_handler = PlotFileEventHandler(df, output_dir)
     observer = Observer()
     observer.schedule(event_handler, path="scripts/plots", recursive=False)

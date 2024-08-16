@@ -1,6 +1,6 @@
 import os
 from watchdog.events import FileSystemEventHandler
-from scripts.plot_manager import generate_main_html_report
+from scripts.plot_manager import generate_main_html_report, load_and_run_plot_script
 
 class PlotFileEventHandler(FileSystemEventHandler):
     """Handle creation, modification, and deletion of plot files."""

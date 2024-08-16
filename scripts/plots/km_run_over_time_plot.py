@@ -1,33 +1,37 @@
 # scripts/plots/km_run_over_time_plot.py
-
 import matplotlib.pyplot as plt
 import os
 
 def generate_plot(df, output_dir):
-    # Check if the dataframe is empty or None
-    if df is None or df.empty:
-        print("No data to plot.")
-        return None
+    # Debugging: Print DataFrame columns
+    print("DataFrame columns:", df.columns)
 
-    # Convert distance to kilometers if it's in meters
-    if df['distance'].max() > 100:  # Assuming distance is in meters if max value > 100
-        df['distance_km'] = df['distance'] / 1000.0
+    # Check if 'distance' column is present and convert it to 'distance_km'
+    if 'distance' in df.columns:
+        df['distance_km'] = df['distance'] / 1000  # Convert meters to kilometers
     else:
-        df['distance_km'] = df['distance']
+        print("Required column 'distance' is missing in the DataFrame.")
+        return
 
-    # Generate the plot: Kilometers run over time
-    fig, ax = plt.subplots()
+    # Check if the necessary columns are present
+    if 'start_date_local' not in df.columns or 'distance_km' not in df.columns:
+        print("Required columns are missing in the DataFrame.")
+        return
+    
+    # Generate the plot
+    plt.figure()
+    plt.plot(df['start_date_local'], df['distance_km'], label='Distance (km)', color='blue')
+    plt.title('Distance Run Over Time')
+    plt.xlabel('Time')
+    plt.ylabel('Distance (km)')
+    plt.legend()
 
-    ax.set_xlabel('Time')
-    ax.set_ylabel('Distance (km)')
-    ax.plot(df['start_date_local'], df['distance_km'], color='tab:blue', label='Kilometers Run')
-    ax.tick_params(axis='y', labelcolor='tab:blue')
+    # Ensure the plots directory exists
+    plots_dir = os.path.join(output_dir, 'plots')
+    if not os.path.exists(plots_dir):
+        os.makedirs(plots_dir)
 
-    plt.setp(ax.get_xticklabels(), rotation=45, ha='right')
-    fig.tight_layout()
-    plt.title('Kilometers Run Over Time')
-
-    # Save the plot as a PNG file in the specified output directory
-    plot_path = os.path.join(output_dir, 'plots', 'km_run_over_time.png')
+    # Save the plot
+    plot_path = os.path.join(plots_dir, 'km_run_over_time.png')
     plt.savefig(plot_path)
     print(f"Plot saved to {plot_path}")
