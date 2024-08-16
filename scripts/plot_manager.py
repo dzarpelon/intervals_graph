@@ -1,6 +1,9 @@
-# scripts/plot_manager.py
 import os
 import importlib.util
+
+# Use the correct directories
+PLOT_SCRIPTS_DIR = os.path.join(os.getcwd(), 'scripts', 'plots')
+OUTPUT_PLOTS_DIR = os.path.join(os.getcwd(), 'output', 'plots')
 
 def load_and_run_plot_script(script_path, df, output_dir):
     try:
@@ -16,7 +19,7 @@ def load_and_run_plot_script(script_path, df, output_dir):
         print(f"Failed to load and run {script_path}: {e}")
 
 def generate_main_html_report(output_dir):
-    plots_dir = os.path.join(output_dir, 'plots')
+    plots_dir = os.path.join(output_dir)
     
     if not os.path.exists(plots_dir):
         os.makedirs(plots_dir)
@@ -42,8 +45,7 @@ def generate_main_html(output_dir, plot_files):
 
 def generate_all_plots(df, output_dir):
     """Generate all plots by running each script in the plots directory."""
-    plot_scripts_dir = os.path.join('scripts', 'plots')
-    for script_file in os.listdir(plot_scripts_dir):
+    for script_file in os.listdir(PLOT_SCRIPTS_DIR):
         if script_file.endswith('.py'):
-            script_path = os.path.join(plot_scripts_dir, script_file)
+            script_path = os.path.join(PLOT_SCRIPTS_DIR, script_file)
             load_and_run_plot_script(script_path, df, output_dir)
