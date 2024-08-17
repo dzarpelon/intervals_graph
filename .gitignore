@@ -39,3 +39,5 @@ scripts/plots/*test*.py
 # Ignore any other related files with "test" in their name
 output/reports/*test*.html
 output/*test*
+# Ignore any .zip files
+*.zip
