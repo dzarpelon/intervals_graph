@@ -18,15 +18,13 @@ def generate_plot(df, output_dir):
     plt.ylabel('Heart Rate (bpm)')
     plt.legend()
 
-
-
-
+    # Adjust x-axis labels for better readability
     plt.xticks(rotation=45, ha='right')
-    plt.xticks(rotation=45, ha="right")
+    plt.gcf().autofmt_xdate()  # Automatically format x-axis dates
 
     # Save the plot
     plot_path = os.path.join(output_dir, 'hr_vs_time.png')
-    plt.savefig(plot_path)
+    plt.savefig(plot_path, bbox_inches='tight')
     print(f"Heart Rate vs Time plot saved to {plot_path}")
 
 if __name__ == "__main__":

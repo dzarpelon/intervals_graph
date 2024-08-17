@@ -18,15 +18,13 @@ def generate_plot(df, output_dir):
     plt.ylabel('Elevation Gain (m)')
     plt.legend()
 
-
-
-
+    # Ensure dates on the x-axis are formatted and displayed correctly
     plt.xticks(rotation=45, ha='right')
-    plt.xticks(rotation=45, ha="right")
+    plt.gcf().autofmt_xdate()  # Automatically adjust the date labels
 
     # Save the plot
     plot_path = os.path.join(output_dir, 'elevation_gain_over_time.png')
-    plt.savefig(plot_path)
+    plt.savefig(plot_path, bbox_inches='tight')  # Use bbox_inches='tight' to prevent clipping of the x-axis labels
     print(f"Elevation Gain Over Time plot saved to {plot_path}")
 
 if __name__ == "__main__":

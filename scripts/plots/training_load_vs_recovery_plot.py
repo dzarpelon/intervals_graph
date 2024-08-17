@@ -5,7 +5,7 @@ def generate_plot(df, output_dir):
     # Print all column names for debugging
     print("DataFrame columns:", df.columns)
     
-    # Assuming 'icu_pm_ftp' as 'training_load' and 'icu_hrr.hrr' as 'recovery_time' for this example
+    # Assuming 'icu_pm_ftp' as 'training_load' and 'icu_hrr.hrr' as 'recovery_time'
     if 'icu_pm_ftp' not in df.columns or 'icu_hrr.hrr' not in df.columns:
         print("Column 'icu_pm_ftp' or 'icu_hrr.hrr' not found in DataFrame")
         return
@@ -19,15 +19,13 @@ def generate_plot(df, output_dir):
     plt.ylabel('Value')
     plt.legend()
 
-
-
-
+    # Adjust x-axis labels for better readability
     plt.xticks(rotation=45, ha='right')
-    plt.xticks(rotation=45, ha="right")
+    plt.gcf().autofmt_xdate()  # Automatically format x-axis dates
 
     # Save the plot
     plot_path = os.path.join(output_dir, 'training_load_vs_recovery.png')
-    plt.savefig(plot_path)
+    plt.savefig(plot_path, bbox_inches='tight')
     print(f"Training Load vs Recovery plot saved to {plot_path}")
 
 if __name__ == "__main__":
