@@ -10,12 +10,12 @@ from dotenv import load_dotenv
 from watchdog.observers import Observer
 from scripts.plot_event_handler import PlotFileEventHandler
 
-# Hardcoded paths
-PLOT_SCRIPTS_DIR = os.path.join(os.getcwd(), 'scripts', 'plots')
-OUTPUT_PLOTS_DIR = os.path.join(os.getcwd(), 'output', 'plots')
+# Determine project root based on this file's location
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Set the working directory to the project root
-os.chdir('/workspaces/python/intervals_graph')
+# Paths to the directories used throughout the app
+PLOT_SCRIPTS_DIR = os.path.join(BASE_DIR, 'scripts', 'plots')
+OUTPUT_PLOTS_DIR = os.path.join(BASE_DIR, 'output', 'plots')
 
 def start_file_observer(df):
     """Start the watchdog observer to monitor plot scripts."""
