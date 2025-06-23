@@ -1,9 +1,12 @@
 import os
 import importlib.util
 
-# Use the correct directories
-PLOT_SCRIPTS_DIR = os.path.join(os.getcwd(), 'scripts', 'plots')
-OUTPUT_PLOTS_DIR = os.path.join(os.getcwd(), 'output', 'plots')
+# Determine project root relative to this file
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Directories used for locating and saving plots
+PLOT_SCRIPTS_DIR = os.path.join(BASE_DIR, 'scripts', 'plots')
+OUTPUT_PLOTS_DIR = os.path.join(BASE_DIR, 'output', 'plots')
 
 def load_and_run_plot_script(script_path, df, output_dir):
     try:

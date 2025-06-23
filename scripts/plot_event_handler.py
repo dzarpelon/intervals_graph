@@ -2,8 +2,11 @@ import os
 from watchdog.events import FileSystemEventHandler
 from scripts.plot_manager import generate_main_html_report, load_and_run_plot_script
 
-# Use the correct directories
-PLOT_SCRIPTS_DIR = os.path.join(os.getcwd(), 'scripts', 'plots')
+# Determine project root relative to this file
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Directory where plot scripts live
+PLOT_SCRIPTS_DIR = os.path.join(BASE_DIR, 'scripts', 'plots')
 
 class PlotFileEventHandler(FileSystemEventHandler):
     """Handle creation, modification, and deletion of plot files."""
